@@ -1,32 +1,36 @@
 import { useState, useEffect } from "react";
-import Todos from "./Todos";
-import AddTodo from "./AddTodo";
+import Todos from "./Components/Todos";
+import AddTodo from "./Components/AddTodo";
 
 const App = () => {
 
   const [todos, setTodos] = useState(
-    JSON.parse(localStorage.getItem('todos')) || []
+    JSON.parse(localStorage.getItem('todos'))?.map(todo => ({show: true, ...todo})) || []
   );
   const [filterType, setFilterType] = useState('all');
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
+    const prepareToSave = todos.map(({show, ...todo}) => todo);
+    localStorage.setItem('todos', JSON.stringify(prepareToSave));
   }, [todos]);
-
-  useEffect(() => {
+  
+  const changeTab = (type) => {
     const todosList = todos.map(item => {
-      if (filterType === 'all') {
+      if (type === 'all') {
         item.show = true;
         return item;
       }
-      if (filterType === 'active')
+      if (type === 'active')
         item.done === false ? item.show = true : item.show = false;
-      if (filterType === 'completed')
+      if (type === 'completed')
         item.done === true ? item.show = true : item.show = false;
       return item;
     })
-    setTodos(todosList);
-  }, [filterType])
+    setTodos(() => {
+      setFilterType(type);
+      return todosList;
+    });
+  }
 
   const addTodo = todo => {
     if (!todo.title) return;
@@ -40,7 +44,7 @@ const App = () => {
   }
 
   const removeAllTodo = () => {
-    const newTodos = todos.filter(todo => todo.done === !todo.done);
+    const newTodos = todos.filter(todo => !todo.done);
     setTodos(newTodos);
   }
 
@@ -61,7 +65,7 @@ const App = () => {
       <div className="title">#todo</div>
       <AddTodo
         addTodo={addTodo}
-        setFilterType={setFilterType}
+        changeTab={changeTab}
         filterType={filterType}
       />
       <Todos
@@ -70,7 +74,7 @@ const App = () => {
         doneTodo={doneTodo}
         filterType={filterType}
       />
-      {filterType === 'completed' && todos.findIndex(item => item.done === true) > -1 && <button className="btn" onClick={removeAllTodo}><i className='fas fa-trash'></i> delete all</button>}
+      {filterType === 'completed' && todos.findIndex(item => item.done === true) > -1 && <button className="btn" onClick={removeAllTodo}><i className='trashIconWhite fas fa-trash'></i> delete all</button>}
     </div>
   )
 }

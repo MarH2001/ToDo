@@ -9,7 +9,7 @@ const Todos = ({ todos, removeTodo, doneTodo, filterType }) => {
             <input className='todoCheck' type='checkbox' onClick={() => doneTodo(todo.id)} defaultChecked={todo.done ? true : false} />
             <span className="todoText">{todo.title}</span>
           </div>
-          {filterType === 'completed' && <div><i className='fas fa-trash' onClick={() => removeTodo(todo.id)}></i></div>}
+          {filterType === 'completed' && <div><i className='trashIconGrey fas fa-trash' onClick={() => removeTodo(todo.id)}></i></div>}
         </div>
       </div>
     ))}

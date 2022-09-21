@@ -4,11 +4,6 @@ html {
     align-items: center;
 }
 
-::placeholder {
-    font-size: 15px;
-    padding: 0 10px;
-}
-
 .app {
     width: 600px;
 }
@@ -24,7 +19,7 @@ html {
     margin: 32px 72px 58px 0;
 }
 
-.addTodo form {
+.todoForm {
     margin-top: 18px;
     display: flex;
     justify-content: center;
@@ -38,7 +33,7 @@ html {
     margin: 18px 0;
 }
 
-.filters div {
+ .filterButton {
     width: 89px;
     height: 30px;
     font-family: 'Montserrat';
@@ -48,25 +43,27 @@ html {
     line-height: 17px;    
     color: #333333;
     cursor: pointer;
+    text-align: center;
 }
 
 .activeFilter {
     display: flex;
     justify-content: center;
-    height: 4px;
     border-bottom: 5px solid #2F80ED;
     border-radius: 4px 4px 0px 0px;
 }
 
-.addTodo .textInput {
+.textInput {
     width: 476px;
     height: 56px;
     border: 1px solid #BDBDBD;
     border-radius: 12px;
     margin-right: 25px;
+    font-size: 15px;
+    padding: 0 10px;
 }
 
-.addTodo .submitBtn {
+.submitBtn {
     width: 109px;
     height: 56px;
     background: #2F80ED;
@@ -109,12 +106,12 @@ html {
     align-items: center;
 }
 
-.todoItemContainer .todoItem {
+.todoItem {
     display: flex;
     align-items: center;
 }
 
-.todoItemContainer .fa-trash {
+.trashIconGrey {
     color: gray;
     margin-left: 35%;
     cursor: pointer;
@@ -136,7 +133,7 @@ html {
     cursor: pointer;
 }
 
-.btn .fa-trash {
+.trashIconWhite {
     color: white;
     margin-right: 5px;
 }
